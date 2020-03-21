@@ -1,6 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -104,5 +104,25 @@ export const getUserWithStoredToken = () => {
       dispatch(logOut());
       dispatch(appDoneLoading());
     }
+  };
+};
+
+export const updateMyPage = (title, description, backgroundColor, color) => {
+  return async (dispatch, getState) => {
+    const { homepage, token } = selectUser(getState());
+    const response = await axios.patch(
+      `${apiUrl}/homepages/${homepage.id}`,
+      {
+        title,
+        description,
+        backgroundColor,
+        color
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
   };
 };
