@@ -10,6 +10,7 @@ import {
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
+export const HOMEPAGE_UPDATED = "HOMEPAGE_UPDATED";
 export const LOG_OUT = "LOG_OUT";
 
 const loginSuccess = userWithToken => {
@@ -25,6 +26,11 @@ const tokenStillValid = userWithoutToken => ({
 });
 
 export const logOut = () => ({ type: LOG_OUT });
+
+export const homepageUpdated = homepage => ({
+  type: HOMEPAGE_UPDATED,
+  payload: homepage
+});
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -110,6 +116,8 @@ export const getUserWithStoredToken = () => {
 export const updateMyPage = (title, description, backgroundColor, color) => {
   return async (dispatch, getState) => {
     const { homepage, token } = selectUser(getState());
+    dispatch(appLoading());
+
     const response = await axios.patch(
       `${apiUrl}/homepages/${homepage.id}`,
       {
@@ -124,5 +132,34 @@ export const updateMyPage = (title, description, backgroundColor, color) => {
         }
       }
     );
+    console.log(response);
+
+    dispatch(
+      showMessageWithTimeout("success", false, "update successfull", 3000)
+    );
+    dispatch(homepageUpdated(response.data.homepage));
+    dispatch(appDoneLoading());
+  };
+};
+
+export const postStory = (name, content, imageUrl) => {
+  return async (dispatch, getState) => {
+    const { homepage, token } = selectUser(getState());
+    console.log(name, content, imageUrl);
+    const response = await axios.post(
+      `${apiUrl}/homepages/${homepage.id}/stories`,
+      {
+        name,
+        content,
+        imageUrl
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    console.log("Yep!", response);
   };
 };

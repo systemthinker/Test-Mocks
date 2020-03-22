@@ -9,10 +9,12 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyHomepageForm from "./MyHomepageForm";
+import StoryForm from "./StoryForm";
 
 export default function MyHomepage() {
   const { token, homepage, id } = useSelector(selectUser);
   const [editMode, setEditMode] = useState(false);
+  const [postStoryMode, setpostStoryMode] = useState(false);
   const history = useHistory();
 
   if (token === null) {
@@ -23,8 +25,10 @@ export default function MyHomepage() {
     return <Loading />;
   }
 
-  const displayEditButton = id === homepage.userId && editMode === false;
+  const displayButtons =
+    id === homepage.userId && editMode === false && postStoryMode === false;
 
+  console.log("EDITMODE", editMode);
   return (
     <Container>
       <Jumbotron
@@ -37,13 +41,26 @@ export default function MyHomepage() {
         <p>{homepage.description}</p>
       </Jumbotron>
 
-      <Card>
-        {displayEditButton ? (
+      {displayButtons ? (
+        <Card>
           <Button onClick={() => setEditMode(true)}>Edit my page</Button>
-        ) : null}
+          <Button onClick={() => setpostStoryMode(true)} className="mt-2">
+            Post a cool story bro
+          </Button>
+        </Card>
+      ) : null}
 
-        {editMode ? <MyHomepageForm /> : null}
-      </Card>
+      {editMode ? (
+        <Card>
+          <MyHomepageForm />
+        </Card>
+      ) : null}
+
+      {postStoryMode ? (
+        <Card>
+          <StoryForm />
+        </Card>
+      ) : null}
 
       <Carousel className="mt-5">
         {/* <Carousel.Item>
