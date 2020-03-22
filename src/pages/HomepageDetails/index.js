@@ -5,10 +5,11 @@ import Homepage from "../../components/Homepage";
 import StoryCarousel from "../../components/StoryCarousel";
 import Container from "react-bootstrap/Container";
 import { fetchHomepageById } from "../../store/homepageDetails/actions";
+import { selectHomepageDetails } from "../../store/homepageDetails/selectors";
 
 export default function HomepageDetails() {
   const { id } = useParams();
-  const homepage = { stories: [] };
+  const homepage = useSelector(selectHomepageDetails);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchHomepageById(id));
