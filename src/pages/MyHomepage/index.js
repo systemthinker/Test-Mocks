@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MyHomepageForm from "./MyHomepageForm";
 import StoryForm from "./StoryForm";
+import Homepage from "../../components/Homepage";
 
 export default function MyHomepage() {
   const { token, homepage, id } = useSelector(selectUser);
@@ -31,15 +32,14 @@ export default function MyHomepage() {
   console.log("EDITMODE", editMode);
   return (
     <Container>
-      <Jumbotron
-        style={{
-          backgroundColor: homepage.backgroundColor,
-          color: homepage.color
-        }}
-      >
-        <h1>{homepage.title}</h1>
-        <p>{homepage.description}</p>
-      </Jumbotron>
+      <Homepage
+        id={homepage.id}
+        title={homepage.title}
+        description={homepage.description}
+        backgroundColor={homepage.backgroundColor}
+        color={homepage.color}
+        showLink={false}
+      />
 
       {displayButtons ? (
         <Card>
