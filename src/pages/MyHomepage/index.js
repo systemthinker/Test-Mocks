@@ -63,17 +63,29 @@ export default function MyHomepage() {
       ) : null}
 
       <Carousel className="mt-5">
-        {/* <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=First slide&bg=373940"
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-  </Carousel.Item> */}
+        {homepage.stories.map(story => {
+          return (
+            <Carousel.Item key={story.id}>
+              {story.imageUrl ? (
+                <img
+                  className="d-block w-100"
+                  src={story.imageUrl}
+                  alt="story image"
+                />
+              ) : null}
+              <Carousel.Caption
+                style={{
+                  backgroundColor: `${homepage.backgroundColor}99`,
+                  color: homepage.color
+                }}
+                className="p-5"
+              >
+                <h3>{story.name}</h3>
+                <p>{story.content}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          );
+        })}
       </Carousel>
     </Container>
   );

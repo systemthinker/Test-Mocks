@@ -12,6 +12,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const HOMEPAGE_UPDATED = "HOMEPAGE_UPDATED";
 export const LOG_OUT = "LOG_OUT";
+export const STORY_POST_SUCCESS = "STORY_POST_SUCCESS";
 
 const loginSuccess = userWithToken => {
   return {
@@ -30,6 +31,11 @@ export const logOut = () => ({ type: LOG_OUT });
 export const homepageUpdated = homepage => ({
   type: HOMEPAGE_UPDATED,
   payload: homepage
+});
+
+export const storyPostSuccess = story => ({
+  type: STORY_POST_SUCCESS,
+  payload: story
 });
 
 export const signUp = (name, email, password) => {
@@ -146,6 +152,8 @@ export const postStory = (name, content, imageUrl) => {
   return async (dispatch, getState) => {
     const { homepage, token } = selectUser(getState());
     console.log(name, content, imageUrl);
+    dispatch(appLoading());
+
     const response = await axios.post(
       `${apiUrl}/homepages/${homepage.id}/stories`,
       {
@@ -160,6 +168,11 @@ export const postStory = (name, content, imageUrl) => {
       }
     );
 
-    console.log("Yep!", response);
+    // console.log("Yep!", response);
+    dispatch(
+      showMessageWithTimeout("success", false, response.data.message, 3000)
+    );
+    dispatch(storyPostSuccess(response.data.story));
+    dispatch(appDoneLoading());
   };
 };
