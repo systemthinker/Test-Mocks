@@ -13,7 +13,7 @@ export default function HomepageDetails() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchHomepageById(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <>

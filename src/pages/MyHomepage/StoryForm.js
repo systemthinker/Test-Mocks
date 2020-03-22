@@ -17,7 +17,7 @@ export default function MyHomepageForm() {
   function submitForm(event) {
     event.preventDefault();
 
-    console.log(name, content, imageUrl);
+    // console.log(name, content, imageUrl);
     dispatch(postStory(name, content, imageUrl));
   }
   return (

@@ -28,7 +28,7 @@ export default function MyHomepage() {
   const displayButtons =
     id === homepage.userId && editMode === false && postStoryMode === false;
 
-  console.log("EDITMODE", editMode);
+  //   console.log("EDITMODE", editMode);
   return (
     <>
       <Homepage

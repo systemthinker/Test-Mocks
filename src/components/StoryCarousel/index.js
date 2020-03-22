@@ -11,7 +11,7 @@ export default function StoryCarousel(props) {
               <img
                 className="d-block w-100"
                 src={story.imageUrl}
-                alt="story image"
+                alt={story.name}
               />
             ) : null}
             <Carousel.Caption

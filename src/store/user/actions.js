@@ -53,10 +53,10 @@ export const signUp = (name, email, password) => {
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        // console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
       } else {
-        console.log(error.message);
+        // console.log(error.message);
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
@@ -78,10 +78,10 @@ export const login = (email, password) => {
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        // console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
       } else {
-        console.log(error.message);
+        // console.log(error.message);
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
@@ -109,7 +109,7 @@ export const getUserWithStoredToken = () => {
       dispatch(tokenStillValid(response.data));
       dispatch(appDoneLoading());
     } catch (error) {
-      console.log(error.response.message);
+      // console.log(error.response.message);
 
       // if we get a 4xx or 5xx response,
       // get rid of the token by logging out
@@ -138,7 +138,7 @@ export const updateMyPage = (title, description, backgroundColor, color) => {
         }
       }
     );
-    console.log(response);
+    // console.log(response);
 
     dispatch(
       showMessageWithTimeout("success", false, "update successfull", 3000)
@@ -151,7 +151,7 @@ export const updateMyPage = (title, description, backgroundColor, color) => {
 export const postStory = (name, content, imageUrl) => {
   return async (dispatch, getState) => {
     const { homepage, token } = selectUser(getState());
-    console.log(name, content, imageUrl);
+    // console.log(name, content, imageUrl);
     dispatch(appLoading());
 
     const response = await axios.post(
