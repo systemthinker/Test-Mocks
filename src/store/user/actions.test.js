@@ -37,3 +37,26 @@ describe('function that accepts a token and checks if its valid',()=>{
 
 
 })
+
+
+import { storyPostSuccess, STORY_POST_SUCCESS } from './actions'
+
+test('action creater that accepts a story and returns a type and story',()=>{
+
+
+
+    const expected = {
+        type: STORY_POST_SUCCESS,
+        payload: {
+            title : 'introduction to Jest',
+            desc : 'Welcome to this story about Jest',
+        }
+    }
+
+    const actionCall = storyPostSuccess({
+        title : 'introduction to Jest',
+        desc : 'Welcome to this story about Jest',
+    })
+
+    expect(actionCall).toEqual(expected);
+})
